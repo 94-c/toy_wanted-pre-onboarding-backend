@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Objects;
+import java.util.*;
 
 @Getter
 @ToString(callSuper = true)
@@ -26,6 +26,14 @@ public class User extends DateField {
     private String password;
     @Setter
     private String name;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    @Setter
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
@@ -51,6 +59,5 @@ public class User extends DateField {
     public int hashCode() {
         return Objects.hash(id, email, password, name);
     }
-
 
 }
