@@ -4,6 +4,7 @@ import com.wanted.backend.dto.request.LoginRequestDto;
 import com.wanted.backend.dto.request.SignUpRequestDto;
 import com.wanted.backend.entity.Role;
 import com.wanted.backend.entity.User;
+import com.wanted.backend.entity.common.RoleName;
 import com.wanted.backend.exception.ApiException;
 import com.wanted.backend.repository.RoleRepository;
 import com.wanted.backend.repository.UserRepository;
@@ -45,8 +46,10 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(signUpRequestDto.getPassword());
         user.setName(signUpRequestDto.getName());
 
+        Role userRole = roleRepository.findByName("ROLE_USER")
+                .orElseThrow(() -> new RuntimeException("ROLE_USER 권한을 찾지 못했습니다."));
+
         Set<Role> roles = new HashSet<>();
-        Role userRole = roleRepository.findByName("ROLE_USER").get();
         roles.add(userRole);
         user.setRoles(roles);
 

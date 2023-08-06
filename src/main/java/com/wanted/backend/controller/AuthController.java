@@ -3,7 +3,6 @@ package com.wanted.backend.controller;
 import com.wanted.backend.dto.request.LoginRequestDto;
 import com.wanted.backend.dto.request.SignUpRequestDto;
 import com.wanted.backend.dto.response.LoginResponse;
-import com.wanted.backend.entity.User;
 import com.wanted.backend.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    private AuthService authService;
+    private final AuthService authService;
 
     public AuthController(AuthService authService) {
         this.authService = authService;
