@@ -15,14 +15,14 @@ import java.util.stream.Collectors;
 public class UserPrincipal implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private final Long id;
 	@JsonIgnore
-	private String email;
+	private final String email;
 	@JsonIgnore
-	private String password;
-	private String name;
+	private final String password;
+	private final String name;
 
-	private Collection<? extends GrantedAuthority> authorities;
+	private final Collection<? extends GrantedAuthority> authorities;
 
 	public UserPrincipal(Long id, String email, String password, String name,
                          Collection<? extends GrantedAuthority> authorities) {

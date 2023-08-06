@@ -1,12 +1,14 @@
 package com.wanted.backend.entity;
 
 import com.wanted.backend.entity.common.DateField;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.*;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @ToString(callSuper = true)
