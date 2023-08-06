@@ -1,11 +1,12 @@
 package com.wanted.backend.entity;
 
 import com.wanted.backend.entity.common.RoleName;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
+
+import javax.persistence.*;
 
 @Getter
 @ToString(callSuper = true)
@@ -18,7 +19,6 @@ public class Role {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @NaturalId
     @Setter
     private RoleName name;
 
