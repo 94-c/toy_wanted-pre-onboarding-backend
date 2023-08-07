@@ -1,8 +1,8 @@
 package com.wanted.backend.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wanted.backend.dto.CustomErrorResponse;
-import com.wanted.backend.dto.ErrorResponse;
+import com.wanted.backend.dto.CustomErrorResource;
+import com.wanted.backend.dto.ErrorResource;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -24,16 +24,16 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
         try (ServletOutputStream outputStream = response.getOutputStream()) {
-            ErrorResponse errorResponse = ErrorResponse.builder()
+            ErrorResource errorResource = ErrorResource.builder()
                     .message("unauthorized")
                     .build();
 
-            errorResponse.addError(CustomErrorResponse.builder()
+            errorResource.addError(CustomErrorResource.builder()
                     .message("로그인이 필요한 서비스입니다.")
                     .build());
 
             ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.writeValue(outputStream, errorResponse);
+            objectMapper.writeValue(outputStream, errorResource);
             outputStream.flush();
         }
     }
