@@ -7,7 +7,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -22,6 +22,7 @@ spring:
     time-zone: UTC
 
 
-app:
-  jwtSecret: secret
-  jwtExpirationInMs: 3600000
+jwt:
+  secret: secret
+  accessTokenExpires: 3600
+  refreshTokenExpires: 604800
