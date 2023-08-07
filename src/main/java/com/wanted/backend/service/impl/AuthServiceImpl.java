@@ -53,6 +53,7 @@ public class AuthServiceImpl implements AuthService {
         roles.add(userRole);
         user.setRoles(roles);
 
+
         userRepository.save(user);
 
         return "회원가입을 성공하였습니다.";
