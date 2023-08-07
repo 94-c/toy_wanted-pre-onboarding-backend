@@ -8,14 +8,14 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SuccessResponse<T> {
+public class SuccessResource<T> {
 
     private String message;
     private T data;
 
-    public static <T> SuccessResponse success(T data) {
+    public static <T> SuccessResource success(T data) {
 
-        return SuccessResponse.builder()
+        return SuccessResource.builder()
                 .message("success")
                 .data(data)
                 .build();

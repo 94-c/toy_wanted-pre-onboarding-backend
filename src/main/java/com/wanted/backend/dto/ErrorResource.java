@@ -12,12 +12,12 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public
-class ErrorResponse {
+class ErrorResource {
     private String message;
     @Builder.Default
-    private List<CustomErrorResponse> errors = new ArrayList<>();
+    private List<CustomErrorResource> errors = new ArrayList<>();
 
-    public List<CustomErrorResponse> addError(CustomErrorResponse error) {
+    public List<CustomErrorResource> addError(CustomErrorResource error) {
         this.errors.add(error);
         return this.errors;
     }
