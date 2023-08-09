@@ -1,8 +1,8 @@
 package com.wanted.backend.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wanted.backend.dto.CustomErrorResponse;
-import com.wanted.backend.dto.ErrorResponse;
+import com.wanted.backend.dto.CustomErrorResource;
+import com.wanted.backend.dto.ErrorResource;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -23,16 +23,16 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
         try(ServletOutputStream outputStream = response.getOutputStream()) {
-            ErrorResponse errorResponse = ErrorResponse.builder()
+            ErrorResource errorResource = ErrorResource.builder()
                     .message("forbidden")
                     .build();
 
-            errorResponse.addError(CustomErrorResponse.builder()
+            errorResource.addError(CustomErrorResource.builder()
                     .message("토큰이 유효하지 않습니다. 다시 로그인을 해주세요.")
                     .build());
 
             ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.writeValue(outputStream, errorResponse);
+            objectMapper.writeValue(outputStream, errorResource);
             outputStream.flush();
         }
     }

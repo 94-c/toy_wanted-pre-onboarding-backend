@@ -1,6 +1,6 @@
 package com.wanted.backend.controller;
 
-import com.wanted.backend.dto.SuccessResponse;
+import com.wanted.backend.dto.SuccessResource;
 import com.wanted.backend.dto.request.LoginRequestDto;
 import com.wanted.backend.dto.request.SignUpRequestDto;
 import com.wanted.backend.dto.response.SignUpResponse;
@@ -23,13 +23,12 @@ public class AuthController {
         this.authService = authService;
     }
 
-
     @PostMapping("/signup")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public SuccessResponse createUser(@Valid @RequestBody SignUpRequestDto signupDTO) {
+    public SuccessResource createUser(@Valid @RequestBody SignUpRequestDto signupDTO) {
         User user = authService.signUp(signupDTO);
 
-        return SuccessResponse.success(SignUpResponse.builder()
+        return SuccessResource.success(SignUpResponse.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
@@ -38,11 +37,11 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public SuccessResponse login(@RequestBody @Validated LoginRequestDto dto) {
+    public SuccessResource login(@RequestBody @Validated LoginRequestDto dto) {
 
         TokenResponse token = authService.login(dto.getEmail(), dto.getPassword());
 
-        return SuccessResponse.success(TokenResponse.builder()
+        return SuccessResource.success(TokenResponse.builder()
                 .grantType(token.getGrantType())
                 .accessToken(token.getAccessToken())
                 .refreshToken(token.getRefreshToken())
