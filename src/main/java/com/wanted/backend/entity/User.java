@@ -29,7 +29,6 @@ public class User extends DateField implements UserDetails {
     private String password;
     private String name;
     @ElementCollection(fetch = FetchType.EAGER)
-    @Column(name = "user_role")
     private List<String> roles;
 
     public static User createNormalMember(String email, String password, String name) {
