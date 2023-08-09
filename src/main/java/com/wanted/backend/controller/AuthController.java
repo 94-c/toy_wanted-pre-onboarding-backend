@@ -23,7 +23,6 @@ public class AuthController {
         this.authService = authService;
     }
 
-
     @PostMapping("/signup")
     @ResponseStatus(value = HttpStatus.CREATED)
     public SuccessResource createUser(@Valid @RequestBody SignUpRequestDto signupDTO) {
