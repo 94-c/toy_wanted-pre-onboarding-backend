@@ -1,5 +1,6 @@
 package com.wanted.backend.service.impl;
 
+import com.sun.security.auth.UserPrincipal;
 import com.wanted.backend.dto.PageResource;
 import com.wanted.backend.dto.request.CreatePostRequestDto;
 import com.wanted.backend.dto.request.UpdatePostRequestDto;
@@ -17,7 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.attribute.UserPrincipal;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -62,6 +62,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post createPost(CreatePostRequestDto createPostRequestDto, Principal currentUser) {
+
         Optional<User> findByUser = authRepository.findByEmail(currentUser.getName());
 
         User findUser = findByUser.orElseThrow(() -> new NotFoundException(404, "권한이 없습니다."));

@@ -49,7 +49,8 @@ public class AuthServiceImpl implements AuthService {
 
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-            return jwtTokenProvider.generateToken(authentication);
+            return jwtTokenProvider.createTokenResponse(authentication);
+
         } catch (AuthenticationException e) {
             throw new LoginInfoException();
         }

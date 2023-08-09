@@ -1,12 +1,12 @@
 package com.wanted.backend.service;
 
+import com.sun.security.auth.UserPrincipal;
 import com.wanted.backend.dto.PageResource;
 import com.wanted.backend.dto.request.CreatePostRequestDto;
 import com.wanted.backend.dto.request.UpdatePostRequestDto;
 import com.wanted.backend.dto.response.PostResponse;
 import com.wanted.backend.entity.Post;
 
-import java.nio.file.attribute.UserPrincipal;
 import java.security.Principal;
 
 public interface PostService {
