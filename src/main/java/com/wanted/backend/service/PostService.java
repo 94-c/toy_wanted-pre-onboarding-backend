@@ -7,11 +7,12 @@ import com.wanted.backend.dto.response.PostResponse;
 import com.wanted.backend.entity.Post;
 
 import java.nio.file.attribute.UserPrincipal;
+import java.security.Principal;
 
 public interface PostService {
     PageResource<PostResponse> findAllPosts(int pageNo, int pageSize, String sortBy, String sortDir);
-    Post createPost(CreatePostRequestDto createPostRequestDto, UserPrincipal currentUser);
-    PostResponse findByPost(Long postId, UserPrincipal currentUser);
-    Post updatePost(UpdatePostRequestDto updatePostRequestDto, UserPrincipal currentUser);
-    void deletePost(Long postId, UserPrincipal currentUser);
+    Post createPost(CreatePostRequestDto createPostRequestDto, Principal currentUser);
+    PostResponse findByPost(Long postId);
+    Post updatePost(Long postId, UpdatePostRequestDto updatePostRequestDto, Principal currentUser);
+    void deletePost(Long postId, Principal currentUser);
 }

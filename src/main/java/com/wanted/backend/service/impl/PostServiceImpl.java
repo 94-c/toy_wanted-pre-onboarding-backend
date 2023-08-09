@@ -18,6 +18,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.attribute.UserPrincipal;
+import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +29,7 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final AuthRepository authRepository;
+
     public PostServiceImpl(PostRepository postRepository, AuthRepository authRepository) {
         this.postRepository = postRepository;
         this.authRepository = authRepository;
@@ -58,7 +61,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post createPost(CreatePostRequestDto createPostRequestDto, UserPrincipal currentUser) {
+    public Post createPost(CreatePostRequestDto createPostRequestDto, Principal currentUser) {
         Optional<User> findByUser = authRepository.findByEmail(currentUser.getName());
 
         User findUser = findByUser.orElseThrow(() -> new NotFoundException(404, "권한이 없습니다."));
@@ -69,11 +72,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostResponse findByPost(Long postId, UserPrincipal currentUser) {
+    public PostResponse findByPost(Long postId) {
         Optional<Post> findByPostId = postRepository.findById(postId);
-        Optional<User> findByUser = authRepository.findByEmail(currentUser.getName());
-
-        User findUser = findByUser.orElseThrow(() -> new NotFoundException(404, "권한이 없습니다."));
 
         Post findByPost = findByPostId.orElseThrow(() -> new NotFoundException(404, "해당 포스트가 존재하지 않습니다."));
 
@@ -82,17 +82,30 @@ public class PostServiceImpl implements PostService {
                 .title(findByPost.getTitle())
                 .content(findByPost.getContent())
                 .createdAt(findByPost.getCreatedAt())
-                .users(UserResponse.convertToUserResponse(findUser))
+                .users(UserResponse.convertToUserResponse(findByPost.getUser()))
                 .build();
     }
 
     @Override
-    public Post updatePost(UpdatePostRequestDto updatePostRequestDto, UserPrincipal currentUser) {
-        return null;
+    public Post updatePost(Long postId, UpdatePostRequestDto updatePostRequestDto, Principal currentUser) {
+
+        Optional<Post> findByPostId = postRepository.findByIdAndUserEmail(postId, currentUser.getName());
+
+        Post findByPost = findByPostId.orElseThrow(() -> new NotFoundException(404, "해당 포스트가 존재하지 않습니다."));
+
+        findByPost.setTitle(updatePostRequestDto.getTitle());
+        findByPost.setContent(updatePostRequestDto.getContent());
+        findByPost.setModifiedAt(LocalDateTime.now());
+
+        return postRepository.save(findByPost);
     }
 
     @Override
-    public void deletePost(Long postId, UserPrincipal currentUser) {
+    public void deletePost(Long postId, Principal currentUser) {
+        Optional<Post> findByPostId = postRepository.findByIdAndUserEmail(postId, currentUser.getName());
 
+        Post findByPost = findByPostId.orElseThrow(() -> new NotFoundException(404, "해당 포스트가 존재하지 않습니다."));
+
+        postRepository.delete(findByPost);
     }
 }
