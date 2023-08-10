@@ -1,0 +1,30 @@
+package com.wanted.backend.dto.response;
+
+import com.wanted.backend.entity.Post;
+import lombok.*;
+
+import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
+
+@Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+public class CreatePostResponse {
+    private Long id;
+    @NotBlank(message = "제목을 입력해주세요.")
+    private String title;
+    @NotBlank(message = "내용을 입력해주세요.")
+    private String content;
+    private LocalDateTime createdAt;
+    private UserResponse users;
+
+    public static CreatePostResponse convertToPostResponse(Post post) {
+        return CreatePostResponse.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .users(UserResponse.convertToUserResponse(post.getUser()))
+                .build();
+    }
+}

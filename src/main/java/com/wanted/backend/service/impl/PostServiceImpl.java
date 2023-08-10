@@ -1,10 +1,9 @@
 package com.wanted.backend.service.impl;
 
-import com.sun.security.auth.UserPrincipal;
 import com.wanted.backend.dto.PageResource;
 import com.wanted.backend.dto.request.CreatePostRequestDto;
 import com.wanted.backend.dto.request.UpdatePostRequestDto;
-import com.wanted.backend.dto.response.PostResponse;
+import com.wanted.backend.dto.response.GetPostResponse;
 import com.wanted.backend.dto.response.UserResponse;
 import com.wanted.backend.entity.Post;
 import com.wanted.backend.entity.User;
@@ -36,7 +35,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PageResource<PostResponse> findAllPosts(int pageNo, int pageSize, String sortBy, String sortDir) {
+    public PageResource<GetPostResponse> findAllPosts(int pageNo, int pageSize, String sortBy, String sortDir) {
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
@@ -46,9 +45,9 @@ public class PostServiceImpl implements PostService {
 
         List<Post> listOfPosts = posts.getContent();
 
-        List<PostResponse> content = listOfPosts.stream().map(PostResponse::convertToPostResponse).collect(Collectors.toList());
+        List<GetPostResponse> content = listOfPosts.stream().map(GetPostResponse::convertToPostResponse).collect(Collectors.toList());
 
-        PageResource<PostResponse> pageResource = new PageResource<>();
+        PageResource<GetPostResponse> pageResource = new PageResource<>();
 
         pageResource.setContent(content);
         pageResource.setPageNo(pageNo);
@@ -68,21 +67,23 @@ public class PostServiceImpl implements PostService {
         User findUser = findByUser.orElseThrow(() -> new NotFoundException(404, "권한이 없습니다."));
 
         Post createPost = Post.of(createPostRequestDto.getTitle(), createPostRequestDto.getContent(), findUser);
+        createPost.setCreatedAt(LocalDateTime.now());
 
         return postRepository.save(createPost);
     }
 
     @Override
-    public PostResponse findByPost(Long postId) {
+    public GetPostResponse findByPost(Long postId) {
         Optional<Post> findByPostId = postRepository.findById(postId);
 
         Post findByPost = findByPostId.orElseThrow(() -> new NotFoundException(404, "해당 포스트가 존재하지 않습니다."));
 
-        return PostResponse.builder()
+        return GetPostResponse.builder()
                 .id(findByPost.getId())
                 .title(findByPost.getTitle())
                 .content(findByPost.getContent())
                 .createdAt(findByPost.getCreatedAt())
+                .modifiedAt(findByPost.getModifiedAt())
                 .users(UserResponse.convertToUserResponse(findByPost.getUser()))
                 .build();
     }

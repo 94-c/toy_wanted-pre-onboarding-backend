@@ -17,9 +17,7 @@ public class UserResponse {
     private String name;
     public static UserResponse convertToUserResponse(User user) {
         return UserResponse.builder()
-                .id(user.getId())
                 .email(user.getEmail())
-                .password(user.getPassword())
                 .name(user.getName())
                 .build();
     }

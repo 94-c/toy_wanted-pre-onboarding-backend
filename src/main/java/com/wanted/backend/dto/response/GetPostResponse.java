@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class PostResponse {
+public class GetPostResponse {
     private Long id;
     @NotBlank(message = "제목을 입력해주세요.")
     private String title;
@@ -20,13 +20,11 @@ public class PostResponse {
     private LocalDateTime modifiedAt;
     private UserResponse users;
 
-    public static PostResponse convertToPostResponse(Post post) {
-        return PostResponse.builder()
+    public static GetPostResponse convertToPostResponse(Post post) {
+        return GetPostResponse.builder()
                 .id(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())
-                .createdAt(post.getCreatedAt())
-                .modifiedAt(post.getModifiedAt())
                 .users(UserResponse.convertToUserResponse(post.getUser()))
                 .build();
     }

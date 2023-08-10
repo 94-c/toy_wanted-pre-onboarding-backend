@@ -4,7 +4,9 @@ import com.wanted.backend.dto.PageResource;
 import com.wanted.backend.dto.SuccessResource;
 import com.wanted.backend.dto.request.CreatePostRequestDto;
 import com.wanted.backend.dto.request.UpdatePostRequestDto;
-import com.wanted.backend.dto.response.PostResponse;
+import com.wanted.backend.dto.response.CreatePostResponse;
+import com.wanted.backend.dto.response.GetPostResponse;
+import com.wanted.backend.dto.response.UpdatePostResponse;
 import com.wanted.backend.dto.response.UserResponse;
 import com.wanted.backend.entity.Post;
 import com.wanted.backend.service.PostService;
@@ -46,12 +48,12 @@ public class PostController {
 
     @PostMapping("")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public SuccessResource<PostResponse> createPost(@Valid @RequestBody CreatePostRequestDto postDTO,
-                                                    Principal currentUser) {
+    public SuccessResource<CreatePostResponse> createPost(@Valid @RequestBody CreatePostRequestDto postDTO,
+                                                          Principal currentUser) {
 
         Post createPost = postService.createPost(postDTO, currentUser);
 
-        return SuccessResource.success(PostResponse.builder()
+        return SuccessResource.success(CreatePostResponse.builder()
                 .title(createPost.getTitle())
                 .content(createPost.getContent())
                 .users(UserResponse.convertToUserResponse(createPost.getUser()))
@@ -63,9 +65,9 @@ public class PostController {
     @ResponseStatus(value = HttpStatus.OK)
     public SuccessResource getPost(@PathVariable(name = "id") Long id) {
 
-        PostResponse post = postService.findByPost(id);
+        GetPostResponse post = postService.findByPost(id);
 
-        return SuccessResource.success(PostResponse.builder()
+        return SuccessResource.success(GetPostResponse.builder()
                 .id(post.getId())
                 .users(post.getUsers())
                 .title(post.getTitle())
@@ -77,13 +79,13 @@ public class PostController {
 
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public SuccessResource<PostResponse> updatePost(@Valid @RequestBody UpdatePostRequestDto postDTO,
-                                                    @PathVariable(name = "id") Long postId,
-                                                    Principal currentUser) {
+    public SuccessResource<UpdatePostResponse> updatePost(@Valid @RequestBody UpdatePostRequestDto postDTO,
+                                                          @PathVariable(name = "id") Long postId,
+                                                          Principal currentUser) {
 
         Post updatePost = postService.updatePost(postId, postDTO, currentUser);
 
-        return SuccessResource.success(PostResponse.builder()
+        return SuccessResource.success(UpdatePostResponse.builder()
                 .id(updatePost.getId())
                 .title(updatePost.getTitle())
                 .content(updatePost.getContent())
