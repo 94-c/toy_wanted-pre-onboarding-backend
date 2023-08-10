@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://db-mysql:3307/wanted-api?useSSL=false
+    url: jdbc:mysql://localhost:3306/wanted_api?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: root
+    password:
   jpa:
     open-in-view: true
     hibernate:
@@ -15,6 +15,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
         format_sql: true
+    database: mysql
 
   jackson:
     serialization:
