@@ -3,8 +3,8 @@ package com.wanted.backend.service.impl;
 import com.wanted.backend.dto.request.SignUpRequestDto;
 import com.wanted.backend.dto.response.TokenResponse;
 import com.wanted.backend.entity.User;
-import com.wanted.backend.exception.impl.EmailDuplicatedException;
-import com.wanted.backend.exception.impl.LoginInfoException;
+import com.wanted.backend.exception.ErrorCode;
+import com.wanted.backend.exception.GlobalException;
 import com.wanted.backend.jwt.provider.JwtTokenProvider;
 import com.wanted.backend.repository.AuthRepository;
 import com.wanted.backend.service.AuthService;
@@ -14,6 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Locale;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -33,11 +36,17 @@ public class AuthServiceImpl implements AuthService {
     public User signUp(SignUpRequestDto signUpRequestDto) {
         authRepository.findByEmail(signUpRequestDto.getEmail())
                 .ifPresent(x -> {
-                    throw new EmailDuplicatedException();
+                    throw new GlobalException(ErrorCode.EMAIL_DUPLICATED);
                 });
 
+        if(signUpRequestDto.getPassword().length() < 8){
+            throw new GlobalException(ErrorCode.WRONG_PASSWORD_INFO);
+        }
+
         String encodedPassword = passwordEncoder.encode(signUpRequestDto.getPassword());
+
         User createUser = User.createNormalMember(signUpRequestDto.getEmail(), encodedPassword, signUpRequestDto.getName());
+        createUser.setCreatedAt(LocalDateTime.now());
 
         return authRepository.save(createUser);
     }
@@ -52,7 +61,8 @@ public class AuthServiceImpl implements AuthService {
             return jwtTokenProvider.createTokenResponse(authentication);
 
         } catch (AuthenticationException e) {
-            throw new LoginInfoException();
+            throw new GlobalException(ErrorCode.MEMBER_NOT_FOUND);
         }
     }
+
 }

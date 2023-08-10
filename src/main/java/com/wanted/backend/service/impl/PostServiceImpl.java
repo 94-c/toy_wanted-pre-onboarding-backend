@@ -7,7 +7,8 @@ import com.wanted.backend.dto.response.GetPostResponse;
 import com.wanted.backend.dto.response.UserResponse;
 import com.wanted.backend.entity.Post;
 import com.wanted.backend.entity.User;
-import com.wanted.backend.exception.NotFoundException;
+import com.wanted.backend.exception.ErrorCode;
+import com.wanted.backend.exception.GlobalException;
 import com.wanted.backend.repository.AuthRepository;
 import com.wanted.backend.repository.PostRepository;
 import com.wanted.backend.service.PostService;
@@ -64,7 +65,7 @@ public class PostServiceImpl implements PostService {
 
         Optional<User> findByUser = authRepository.findByEmail(currentUser.getName());
 
-        User findUser = findByUser.orElseThrow(() -> new NotFoundException(404, "권한이 없습니다."));
+        User findUser = findByUser.orElseThrow(() -> new GlobalException(ErrorCode.MEMBER_NOT_FOUND));
 
         Post createPost = Post.of(createPostRequestDto.getTitle(), createPostRequestDto.getContent(), findUser);
         createPost.setCreatedAt(LocalDateTime.now());
@@ -76,7 +77,7 @@ public class PostServiceImpl implements PostService {
     public GetPostResponse findByPost(Long postId) {
         Optional<Post> findByPostId = postRepository.findById(postId);
 
-        Post findByPost = findByPostId.orElseThrow(() -> new NotFoundException(404, "해당 포스트가 존재하지 않습니다."));
+        Post findByPost = findByPostId.orElseThrow(() -> new GlobalException(ErrorCode.POST_NOT_FOUND));
 
         return GetPostResponse.builder()
                 .id(findByPost.getId())
@@ -93,7 +94,7 @@ public class PostServiceImpl implements PostService {
 
         Optional<Post> findByPostId = postRepository.findByIdAndUserEmail(postId, currentUser.getName());
 
-        Post findByPost = findByPostId.orElseThrow(() -> new NotFoundException(404, "해당 포스트가 존재하지 않습니다."));
+        Post findByPost = findByPostId.orElseThrow(() -> new GlobalException(ErrorCode.POST_NOT_FOUND));
 
         findByPost.setTitle(updatePostRequestDto.getTitle());
         findByPost.setContent(updatePostRequestDto.getContent());
@@ -106,7 +107,7 @@ public class PostServiceImpl implements PostService {
     public void deletePost(Long postId, Principal currentUser) {
         Optional<Post> findByPostId = postRepository.findByIdAndUserEmail(postId, currentUser.getName());
 
-        Post findByPost = findByPostId.orElseThrow(() -> new NotFoundException(404, "해당 포스트가 존재하지 않습니다."));
+        Post findByPost = findByPostId.orElseThrow(() -> new GlobalException(ErrorCode.POST_NOT_FOUND));
 
         postRepository.delete(findByPost);
     }

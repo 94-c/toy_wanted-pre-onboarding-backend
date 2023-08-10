@@ -14,12 +14,9 @@ import javax.validation.constraints.Size;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SignUpRequestDto {
-    @NotBlank
-    @Size(max = 40)
-    @Email
+    @Email(message = "@ 이메일 형식에 맞지 않습니다.")
     private String email;
     @NotBlank
-    @Size(min = 6, max = 20)
     private String password;
     private String name;
 
