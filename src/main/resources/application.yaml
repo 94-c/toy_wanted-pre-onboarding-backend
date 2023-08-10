@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/wanted_api
-    username: root
-    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://db-mysql:3307/wanted-api?useSSL=false
+    username: root
+    password: root
   jpa:
     open-in-view: true
     hibernate:
@@ -20,9 +20,6 @@ spring:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
     time-zone: UTC
-
-  profiles:
-    active: docker
 
   mvc:
     pathmatch:
