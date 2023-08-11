@@ -23,24 +23,21 @@
 - [X] **과제 7. 특정 게시글을 삭제하는 엔드포인트**
     - [X] 게시글의 ID를 받아 해당 게시글을 삭제하는 엔드포인트를 구현해 주세요.
     - [X] 게시글을 삭제할 수 있는 사용자는 게시글 작성자만이어야 합니다.
---------------------------------------
+
 
 ## 🧑🏻‍💻 지원자 소개
-
 ----
 ### 이름 :  최형우
 ### 이메일 : hyeongwoo26@gmail.com 
 ### 📌 기술 스택
-
------
+----
 - Java 17
 - Spring Boot 2.7.12
 - Maven 
 - MySQL 
 
 ### 📌 라이브러리 및 프레임 워크
-
------
+---
 - Spring Data JPA
 - Spring Security
 - Junit
@@ -49,12 +46,14 @@
 - lombok
 
 ## 💻 애플리케이션의 실행 방법
+---
 ~~~
 git clone https://github.com/94-c/wanted-pre-onboarding-backend.git
 
 docker-compose up --build -d
 ~~~
 ### 엔드포인트 호출 방법
+---
 > request 와 response 정보는 "API 명세(request/response 포함)" 를 참고해 주세요.
 
 - 회원가입 엔드포인트
@@ -73,13 +72,16 @@ docker-compose up --build -d
     - DELETE `/api/v1/posts/{postId}`
 
 ## 💿 데이터베이스 테이블 구조
+---
 ![wanted_api](https://github.com/94-c/wanted-pre-onboarding-backend/assets/79362952/4ecee0a9-e908-45cb-8522-543f33aee50b)
 
 ## 🖥 구현한 API의 동작을 촬영한 데모 영상 링크
-![GIFMaker_me](https://github.com/94-c/wanted-pre-onboarding-backend/assets/79362952/2609ac9f-f884-48fa-bc25-2101cb9ab7f5)
+---
+![GIFMaker_me (2)](https://github.com/94-c/servlet-blog-project/assets/79362952/a9674d32-950d-4113-8c60-62f51abc3dd5)
 
 ### - 📌 구현 방법 및 이유에 대한 간략한 설명
 
 ## 🧾 API 명세(request/response 포함)
+---
 
 - http://15.164.204.138:8080/swagger-ui/
