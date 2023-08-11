@@ -103,6 +103,12 @@ http://15.164.204.138:8080/
 
 ### - 📌 구현 방법 및 이유에 대한 간략한 설명
 
+![Group 18](https://github.com/lordmyshepherd-edu/wanted-pre-onboardung-backend-selection-assignment/assets/79362952/81cac2e8-aa94-4a3b-9043-1c9035f0b52d)
+
+1. 사용자가 넘긴 Request 값을 ``Filter(Security)``처리 사용자 권한을 확인 해당 ``Controller``로 값을 넘긴다.
+2. 권한이 확인 된 사용자의 ``Request Dto``를 해당 ``business logic``인 ``service``에서 값에 대한 예외 처리 및 데이터를 저장 하도록 ```Repository```로 값을 전달하여
+3. ```Database```에서 해당 값을 저장 및 전달이 이루어지게 된다. 해당 값이 이상이 없을 경우에는 역순으로 하여 다시 사용자들에게 해당 결과 값을 보여준다.
+
 ---
 ## 🧾 API 명세(request/response 포함)
 
@@ -187,6 +193,8 @@ http://15.164.204.138:8080/
 
 ### 3.1 Response
 - GET `/api/v1/posts`
+
+- 200 OK
   ```json
   {
     "message": "success",
@@ -319,7 +327,113 @@ http://15.164.204.138:8080/
 
   ```json
     {
-	   "title" : "게시글 테스트 1",
+	  "title" : "게시글 테스트 1",
       "content" : "게시글 테스트 컨텐트"
     }
+  ```
+### 4.2 Response
+- 201 Created
+    ```json
+  {
+        "message": "success",
+        "data": {
+            "id": null,
+            "title": "게시글 테스트 1",
+            "content": "게시글 테스트 컨텐트",
+            "createdAt": "2023-08-11T17:20:27.520810701",
+            "users": {
+                "email": "hyeongwoo26@gmail.com",
+                "name": "최형우"
+            }
+        }
+    }
+  ```
+
+### 5. 게시글 상세보기  (findByPost)
+
+### 5.1 Response
+- GET `/api/v1/posts/{postId}`
+
+
+- 200 OK
+    ```json
+  {
+     "message": "success",
+      "data": {
+          "id": 2,
+          "title": "게시글 테스트 1",
+          "content": "게시글 테스트 컨텐트",
+          "createdAt": "2023-08-11T14:29:38",
+          "modifiedAt": null,
+              "users": {
+              "email": "hyeongwoo26@gmail.com",
+              "name": "최형우"
+              }
+        }
+  }
+  ```
+- 400 Bad Request
+    ```json
+  {
+      "message": "존재하지 않는 게시물입니다",
+      "errorCode": "POST_NOT_FOUND"
+  }
+  ```
+
+### 6. 게시글 수정하기  (updatePost)
+
+### 6.1 Request
+- PUT `/api/v1/posts/{postId}`
+  ```json
+  {
+    "title" : "게시글 원티드 온보딩 backend",
+    "content" : "게시글 테스트 컨텐트"
+  }
+  ```
+
+### 6.2 Response
+
+- 200 OK
+    ```json
+    {
+      "message": "success",
+          "data": {
+            "id": 14,
+            "title": "게시글 원티드 온보딩 backend",
+            "content": "게시글 테스트 컨텐트",
+            "createdAt": "2023-08-11T14:29:46",
+            "modifiedAt": "2023-08-11T17:28:57.530582405",
+                "users": {
+                "email": "hyeongwoo26@gmail.com",
+                "name": "최형우"
+                }
+        }
+    }
+  ```
+- 400 Bad Request
+    ```json
+  {
+      "message": "존재하지 않는 게시물입니다",
+      "errorCode": "POST_NOT_FOUND"
+  }
+  ```
+
+### 7. 게시글 삭제하기  (deletePost)
+
+### 7.1 Response
+- DELETE `/api/v1/posts/{postId}`
+
+- 200 OK
+    ```json
+  {
+       "message": "success",
+       "data": "해당 게시글이 삭제 되었습니다."
+  }
+  ```
+- 400 Bad Request
+    ```json
+  {
+      "message": "존재하지 않는 게시물입니다",
+      "errorCode": "POST_NOT_FOUND"
+  }
   ```
