@@ -33,10 +33,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public User signUp(SignUpRequestDto signUpRequestDto) {
-        authRepository.findByEmail(signUpRequestDto.getEmail())
-                .ifPresent(x -> {
-                    throw new GlobalException(ErrorCode.EMAIL_DUPLICATED);
-                });
+        if (authRepository.findByEmail(signUpRequestDto.getEmail()).isPresent()) {
+            throw new GlobalException(ErrorCode.EMAIL_DUPLICATED);
+        }
+
+        if (!signUpRequestDto.getEmail().contains("@")) {
+            throw new GlobalException(ErrorCode.UNAUTHORIZED);
+        }
 
         if(signUpRequestDto.getPassword().length() < 8){
             throw new GlobalException(ErrorCode.WRONG_PASSWORD_INFO);

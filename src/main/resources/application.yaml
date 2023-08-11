@@ -1,11 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3308/wanted_api?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
-    #url: jdbc:mysql://database-1.cbhi4umxckks.ap-northeast-2.rds.amazonaws.com:3306/wanted_api?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 1234  # MySQL 컨테이너의 root 비밀번호와 일치해야 합니다.
-    #password: 12341234  # MySQL 컨테이너의 root 비밀번호와 일치해야 합니다.
+    url: jdbc:mysql://15.164.204.138:3306/wanted_api?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: choihw
+    password: 1234
 
   jpa:
     open-in-view: true

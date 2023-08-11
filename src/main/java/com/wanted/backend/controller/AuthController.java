@@ -8,10 +8,10 @@ import com.wanted.backend.dto.response.TokenResponse;
 import com.wanted.backend.entity.User;
 import com.wanted.backend.service.AuthService;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -25,7 +25,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public SuccessResource createUser(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
+    public SuccessResource createUser(@RequestBody @Valid SignUpRequestDto signUpRequestDto) {
 
         User user = authService.signUp(signUpRequestDto);
 
@@ -38,7 +38,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public SuccessResource login(@RequestBody @Validated LoginRequestDto dto) {
+    public SuccessResource login(@RequestBody @Valid LoginRequestDto dto) {
 
         TokenResponse token = authService.login(dto.getEmail(), dto.getPassword());
 
