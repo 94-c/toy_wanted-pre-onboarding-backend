@@ -1,6 +1,5 @@
 package com.wanted.backend.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

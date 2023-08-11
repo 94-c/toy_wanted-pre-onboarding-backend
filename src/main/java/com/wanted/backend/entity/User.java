@@ -31,24 +31,16 @@ public class User extends DateField implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
-    public static User createNormalMember(String email, String password, String name) {
-        ArrayList<String> roles = new ArrayList<>();
-        roles.add("USER");
-        return new User(email, password, name, roles);
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
-
     @Override
     public String getPassword() {
         return password;
     }
-
     @Override
     public String getUsername() {
         return email;
@@ -81,17 +73,18 @@ public class User extends DateField implements UserDetails {
         this.roles = roles;
     }
 
-    public static User of(String email, String password, String name, List<String> roles) {
+    public static User of(String email, String password, String name) {
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("USER");
         return new User(email, password, name, roles);
-    }
 
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
         return getId() != null && this.getId().equals(user.getId());
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(id, email, password, name);

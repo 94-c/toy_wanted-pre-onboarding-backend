@@ -1,7 +1,6 @@
 package com.wanted.backend.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.wanted.backend.entity.Post;
 import com.wanted.backend.entity.User;
 import lombok.*;
 

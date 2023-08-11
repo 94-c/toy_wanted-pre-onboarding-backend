@@ -6,7 +6,6 @@ import com.wanted.backend.dto.request.SignUpRequestDto;
 import com.wanted.backend.dto.response.SignUpResponse;
 import com.wanted.backend.dto.response.TokenResponse;
 import com.wanted.backend.entity.User;
-import com.wanted.backend.repository.AuthRepository;
 import com.wanted.backend.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -19,12 +18,9 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final AuthService authService;
-    private final AuthRepository authRepository;
 
-    public AuthController(AuthService authService,
-                          AuthRepository authRepository) {
+    public AuthController(AuthService authService) {
         this.authService = authService;
-        this.authRepository = authRepository;
     }
 
     @PostMapping("/signup")
@@ -49,7 +45,6 @@ public class AuthController {
         return SuccessResource.success(TokenResponse.builder()
                 .grantType(token.getGrantType())
                 .accessToken(token.getAccessToken())
-                .refreshToken(token.getRefreshToken())
                 .build());
     }
 

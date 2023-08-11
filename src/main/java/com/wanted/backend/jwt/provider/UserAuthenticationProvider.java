@@ -1,9 +1,7 @@
 package com.wanted.backend.jwt.provider;
 
-import com.wanted.backend.service.AuthService;
 import com.wanted.backend.service.impl.CustomUserServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
