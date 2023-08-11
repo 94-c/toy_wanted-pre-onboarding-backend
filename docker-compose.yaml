@@ -12,7 +12,7 @@ services:
       - MYSQL_DATABASE=wanted_api
       - MYSQL_PASSWORD=1234
     ports:
-      - "3308:3306"
+      - "3306:3306"
     networks:
       - wanted-api
     healthcheck:
@@ -22,8 +22,8 @@ services:
   backend:
     container_name: wanted-backend
     ports:
-      - "8081:8080"
-    image: choihyoungwoo/wanted-onboarding-backend:1.1
+      - "8080:8080"
+    image: choihyoungwoo/wanted-onboarding-backend:1.6
     volumes:
       - backend_images:/app/backend/images
     networks:
@@ -32,7 +32,7 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/wanted_api
+      SPRING_DATASOURCE_URL: jdbc:mysql://15.164.204.138:3306/wanted_api
 networks:
   wanted-api:
     driver: bridge

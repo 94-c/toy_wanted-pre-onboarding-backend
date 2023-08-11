@@ -29,8 +29,8 @@ public class User extends DateField implements UserDetails {
     private String password;
     private String name;
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles")
     private List<String> roles;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()

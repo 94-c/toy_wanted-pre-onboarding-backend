@@ -39,7 +39,6 @@ public class ExceptionControllerAdvice {
     @Getter
     @AllArgsConstructor
     public static class ExceptionResponse {
-
         private String message;
         private String errorCode;
     }
