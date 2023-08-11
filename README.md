@@ -82,7 +82,7 @@ http://15.164.204.138:8080/
 
 ## 🖥 구현한 API의 동작을 촬영한 데모 영상 링크
 ---
-![GIFMaker_me (2)](https://github.com/94-c/servlet-blog-project/assets/79362952/a9674d32-950d-4113-8c60-62f51abc3dd5)
+- youtube link : https://studio.youtube.com/video/Y7Q37BDZ8OA/edit
 
 ### - 📌 구현 방법 및 이유에 대한 간략한 설명
 
