@@ -52,7 +52,12 @@ git clone https://github.com/94-c/wanted-pre-onboarding-backend.git
 
 docker-compose up --build -d
 ~~~
-### 엔드포인트 호출 방법
+### 📌 AWS 배포 IP 주소
+---
+~~~
+http://15.164.204.138:8080/
+~~~
+### 📌 엔드포인트 호출 방법
 ---
 > request 와 response 정보는 "API 명세(request/response 포함)" 를 참고해 주세요.
 
