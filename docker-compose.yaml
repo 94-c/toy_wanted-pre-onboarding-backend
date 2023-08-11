@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  mysql:
+    container_name: wanted-mysql
+    image: mysql:latest
+    restart: always
+    volumes:
+      - mysql_volume:/app/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=wanted_api
+      - MYSQL_PASSWORD=1234
+    ports:
+      - "3308:3306"
+    networks:
+      - wanted-api
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  backend:
+    container_name: wanted-backend
+    ports:
+      - "8081:8080"
+    image: choihyoungwoo/wanted-onboarding-backend:1.1
+    volumes:
+      - backend_images:/app/backend/images
+    networks:
+      - wanted-api
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/wanted_api
+networks:
+  wanted-api:
+    driver: bridge
+volumes:
+  mysql_volume:
+    driver: local
+  backend_images:
+    driver: local
