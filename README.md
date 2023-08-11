@@ -26,10 +26,12 @@
 
 
 ## 🧑🏻‍💻 지원자 소개
+
 ----
 ### 이름 :  최형우
 ### 이메일 : hyeongwoo26@gmail.com 
 ### 📌 기술 스택
+
 ----
 - Java 17
 - Spring Boot 2.7.12
@@ -37,6 +39,7 @@
 - MySQL 
 
 ### 📌 라이브러리 및 프레임 워크
+
 ---
 - Spring Data JPA
 - Spring Security
@@ -46,6 +49,7 @@
 - lombok
 
 ## 💻 애플리케이션의 실행 방법
+
 ---
 ~~~
 git clone https://github.com/94-c/wanted-pre-onboarding-backend.git
@@ -53,11 +57,20 @@ git clone https://github.com/94-c/wanted-pre-onboarding-backend.git
 docker-compose up --build -d
 ~~~
 ### 📌 AWS 배포 IP 주소
+
 ---
 ~~~
 http://15.164.204.138:8080/
 ~~~
+
+### 📌 AWS 배포 환경
+
+---
+![Group 8](https://github.com/94-c/wanted-pre-onboarding-backend/assets/79362952/c7a16b63-d25c-4f85-a190-e3106cfe0a8c)
+
+
 ### 📌 엔드포인트 호출 방법
+
 ---
 > request 와 response 정보는 "API 명세(request/response 포함)" 를 참고해 주세요.
 
@@ -76,17 +89,237 @@ http://15.164.204.138:8080/
 - 게시글 삭제 엔드포인트
     - DELETE `/api/v1/posts/{postId}`
 
+
+
 ## 💿 데이터베이스 테이블 구조
+
 ---
 ![wanted_api](https://github.com/94-c/wanted-pre-onboarding-backend/assets/79362952/4ecee0a9-e908-45cb-8522-543f33aee50b)
 
 ## 🖥 구현한 API의 동작을 촬영한 데모 영상 링크
+
 ---
 - youtube link : https://studio.youtube.com/video/Y7Q37BDZ8OA/edit
 
 ### - 📌 구현 방법 및 이유에 대한 간략한 설명
 
-## 🧾 API 명세(request/response 포함)
 ---
+## 🧾 API 명세(request/response 포함)
 
+---
+### Swagger 
 - http://15.164.204.138:8080/swagger-ui/
+
+### 1. 회원가입 (Signup)
+
+### 1.1 Request
+- POST `/api/v1/signup`
+    ```json
+  {
+      "email" : "hyeongwoo26@google.com",
+      "password" : "12341234",
+      "name" : "최형우"
+    }
+  ```
+### 1.2 Response
+- 201 Created
+    ```json
+  {
+      "message": "success",
+      "data": {
+          "id": 3,
+          "email": "hyeongwoo26@gmail.com",
+          "name": "최형우",
+          "createdAt": "2023-08-11T17:06:07.769654429"
+      }
+  }
+  ```
+- 400 Bad Request
+    ```json
+   {
+      "message": "이메일이 중복되었습니다",
+      "errorCode": "EMAIL_DUPLICATED"
+    }
+   ```
+  ```json
+  {
+    "message": "이메일 형식에 맞지않습니다",
+    "errorCode": "UNAUTHORIZED"
+  }
+  ```
+  ```json
+  {
+    "message": "패스워드 길이를 8자 이상 작성해 주세요",
+    "errorCode": "WRONG_PASSWORD_INFO"
+  }
+  ```   
+
+### 2. 로그인 (login)
+
+### 2.1 Request
+- POST `/api/v1/login`
+    ```json
+  {
+      "email" : "hyeongwoo26@google.com",
+      "password" : "12341234"
+    }
+  ```
+### 2.2 Response
+- 200 OK
+    ```json
+  {
+  "message": "success",
+  "data": {
+        "grantType": "Bearer",
+        "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoeWVvbmd3b28yMEBnbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjkxODYwMzUzfQ.iUJ-FtCiQlKPDcvhUMwF-874qSI24imlR-u0MztaiCI5YCRQ3zzSDiUXo4HmyNQY0ckfrSEyyl-V8fc9wnITiQ"
+      }
+  }
+  ```
+- 400 Bad Request
+    ```json
+   {
+     "message": "존재하지 않는 사용자입니다",
+     "errorCode": "MEMBER_NOT_FOUND"
+    }
+   ```
+
+### 3. 게시글 전체 조회 (findAllPosts)
+
+### 3.1 Response
+- GET `/api/v1/posts`
+  ```json
+  {
+    "message": "success",
+    "data": {
+        "content": [
+            {
+                "id": 16,
+                "title": "게시글 테스트 1",
+                "content": "게시글 테스트 컨텐트",
+                "createdAt": null,
+                "modifiedAt": null,
+                "users": {
+                    "email": "hyeongwoo26@gmail.com",
+                    "name": "최형우"
+                }
+            },
+            {
+                "id": 15,
+                "title": "게시글 테스트 1",
+                "content": "게시글 테스트 컨텐트",
+                "createdAt": null,
+                "modifiedAt": null,
+                "users": {
+                    "email": "hyeongwoo26@gmail.com",
+                    "name": "최형우"
+                }
+            },
+            {
+                "id": 14,
+                "title": "게시글 테스트 1",
+                "content": "게시글 테스트 컨텐트",
+                "createdAt": null,
+                "modifiedAt": null,
+                "users": {
+                    "email": "hyeongwoo26@gmail.com",
+                    "name": "최형우"
+                }
+            },
+            {
+                "id": 13,
+                "title": "게시글 테스트 1",
+                "content": "게시글 테스트 컨텐트",
+                "createdAt": null,
+                "modifiedAt": null,
+                "users": {
+                    "email": "hyeongwoo26@gmail.com",
+                    "name": "최형우"
+                }
+            },
+            {
+                "id": 12,
+                "title": "게시글 테스트 1",
+                "content": "게시글 테스트 컨텐트",
+                "createdAt": null,
+                "modifiedAt": null,
+                "users": {
+                    "email": "hyeongwoo26@gmail.com",
+                    "name": "최형우"
+                }
+            },
+            {
+                "id": 11,
+                "title": "게시글 원티드 온보딩 backend",
+                "content": "게시글 테스트 컨텐트",
+                "createdAt": null,
+                "modifiedAt": null,
+                "users": {
+                    "email": "hyeongwoo26@gmail.com",
+                    "name": "최형우"
+                }
+            },
+            {
+                "id": 10,
+                "title": "게시글 테스트 1",
+                "content": "게시글 테스트 컨텐트",
+                "createdAt": null,
+                "modifiedAt": null,
+                "users": {
+                    "email": "hyeongwoo26@gmail.com",
+                    "name": "최형우"
+                }
+            },
+            {
+                "id": 9,
+                "title": "게시글 테스트 1",
+                "content": "게시글 테스트 컨텐트",
+                "createdAt": null,
+                "modifiedAt": null,
+                "users": {
+                    "email": "hyeongwoo26@gmail.com",
+                    "name": "최형우"
+                }
+            },
+            {
+                "id": 8,
+                "title": "게시글 테스트 1",
+                "content": "게시글 테스트 컨텐트",
+                "createdAt": null,
+                "modifiedAt": null,
+                "users": {
+                    "email": "hyeongwoo26@gmail.com",
+                    "name": "최형우"
+                }
+            },
+            {
+                "id": 7,
+                "title": "게시글 테스트 1",
+                "content": "게시글 테스트 컨텐트",
+                "createdAt": null,
+                "modifiedAt": null,
+                "users": {
+                    "email": "hyeongwoo26@gmail.com",
+                    "name": "최형우"
+                }
+            }
+        ],
+        "pageNo": 0,
+        "pageSize": 10,
+        "totalElements": 15,
+        "totalPages": 2,
+        "last": false
+    }
+  }
+  ```
+
+### 4. 게시글 등록 (createPost)
+
+### 4.1 Request
+- POST `/api/v1/posts`
+
+  ```json
+    {
+	   "title" : "게시글 테스트 1",
+      "content" : "게시글 테스트 컨텐트"
+    }
+  ```
