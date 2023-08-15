@@ -66,8 +66,7 @@ http://15.164.204.138:8080/
 ### 📌 AWS 배포 환경
 
 ---
-![Group 8](https://github.com/94-c/wanted-pre-onboarding-backend/assets/79362952/c7a16b63-d25c-4f85-a190-e3106cfe0a8c)
-
+![Frame 7](https://github.com/94-c/wanted-pre-onboarding-backend/assets/79362952/1cf45bf8-ffd2-42f9-8946-75ea19253d56)
 
 ### 📌 엔드포인트 호출 방법
 
@@ -94,7 +93,7 @@ http://15.164.204.138:8080/
 ## 💿 데이터베이스 테이블 구조
 
 ---
-![wanted_api](https://github.com/94-c/wanted-pre-onboarding-backend/assets/79362952/4ecee0a9-e908-45cb-8522-543f33aee50b)
+![wanted_api](https://github.com/94-c/wanted-pre-onboarding-backend/assets/79362952/34e236ae-0780-4487-b75f-8b82fe6fa1ca)
 
 ## 🖥 구현한 API의 동작을 촬영한 데모 영상 링크
 
