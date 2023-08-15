@@ -99,8 +99,8 @@ http://15.164.204.138:8080/
 ## 🖥 구현한 API의 동작을 촬영한 데모 영상 링크
 
 ---
-- youtube link : https://studio.youtube.com/video/Y7Q37BDZ8OA/edit
-
+- youtube link : https://youtu.be/Y7Q37BDZ8OA
+- 
 ### - 📌 구현 방법 및 이유에 대한 간략한 설명
 
 ![Group 18](https://github.com/lordmyshepherd-edu/wanted-pre-onboardung-backend-selection-assignment/assets/79362952/81cac2e8-aa94-4a3b-9043-1c9035f0b52d)
